@@ -9,7 +9,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 bg-blue-600 rounded-md"></div>
-            <span className="font-semibold text-slate-900">CV-Scan</span>
+            <span className="font-semibold text-slate-900">Candidate Dashboard</span>
           </div>
           <span className="text-sm text-slate-400">HR Dashboard</span>
         </div>
