@@ -9,12 +9,16 @@ import { SearchBar } from '../SearchBar/SearchBar';
 
 const SkeletonRow = () => (
   <tr className="border-b border-slate-100">
-    {[140, 80, 60, 90, 80, 160].map((w, i) => (
-      <td key={i} className="py-3.5 px-4">
-        <div
-          className="h-4 bg-slate-200 rounded animate-pulse"
-          style={{ width: w }}
-        />
+    {[
+      { w: 140, cls: '' },
+      { w: 80,  cls: 'hidden sm:table-cell' },
+      { w: 60,  cls: 'hidden sm:table-cell' },
+      { w: 90,  cls: '' },
+      { w: 80,  cls: '' },
+      { w: 160, cls: 'hidden lg:table-cell' },
+    ].map(({ w, cls }, i) => (
+      <td key={i} className={`py-3.5 px-4 ${cls}`}>
+        <div className="h-4 bg-slate-200 rounded animate-pulse" style={{ width: w }} />
       </td>
     ))}
   </tr>
@@ -65,11 +69,11 @@ export const CandidateList = () => {
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">ФИО</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Город</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Опыт</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">Город</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">Опыт</th>
                   <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Вердикт</th>
                   <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Статус</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Стек</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">Стек</th>
                 </tr>
               </thead>
               <tbody>

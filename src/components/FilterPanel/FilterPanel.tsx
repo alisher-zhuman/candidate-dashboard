@@ -51,7 +51,7 @@ export const FilterPanel = () => {
       </div>
 
       {/* Сортировка */}
-      <div className="flex gap-2 items-center ml-auto">
+      <div className="flex gap-2 items-center sm:ml-auto w-full sm:w-auto">
         <select
           value={sortField}
           onChange={(e) => setSortField(e.target.value as SortField)}
