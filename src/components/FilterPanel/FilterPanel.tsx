@@ -39,7 +39,7 @@ export const FilterPanel = () => {
           <button
             key={v}
             onClick={() => setVerdict(v)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${
               verdict === v
                 ? verdictActiveClass[v]
                 : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
@@ -55,7 +55,7 @@ export const FilterPanel = () => {
         <select
           value={sortField}
           onChange={(e) => setSortField(e.target.value as SortField)}
-          className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 cursor-pointer"
         >
           {SORT_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -66,7 +66,7 @@ export const FilterPanel = () => {
 
         <button
           onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-          className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+          className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
         >
           {sortOrder === "asc" ? "↑ По возрастанию" : "↓ По убыванию"}
         </button>

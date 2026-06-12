@@ -92,7 +92,7 @@ export const CandidateList = () => {
             <button
               key={p}
               onClick={() => setPage(p)}
-              className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
+              className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                 page === p
                   ? 'bg-blue-600 text-white'
                   : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'

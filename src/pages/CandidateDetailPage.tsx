@@ -42,7 +42,7 @@ export const CandidateDetailPage = () => {
           <p className="text-slate-500 mb-8 text-sm">Возможно, он был удалён или ссылка неверна</p>
           <button
             onClick={() => navigate('/candidates')}
-            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Вернуться к списку
           </button>
@@ -55,7 +55,7 @@ export const CandidateDetailPage = () => {
     <Layout>
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-6"
+        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-6 cursor-pointer"
       >
         ← Назад к списку
       </button>
