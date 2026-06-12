@@ -7,6 +7,19 @@ import { CandidateCard } from '../CandidateCard/CandidateCard';
 import { FilterPanel } from '../FilterPanel/FilterPanel';
 import { SearchBar } from '../SearchBar/SearchBar';
 
+const SkeletonRow = () => (
+  <tr className="border-b border-slate-100">
+    {[140, 80, 60, 90, 80, 160].map((w, i) => (
+      <td key={i} className="py-3.5 px-4">
+        <div
+          className="h-4 bg-slate-200 rounded animate-pulse"
+          style={{ width: w }}
+        />
+      </td>
+    ))}
+  </tr>
+);
+
 export const CandidateList = () => {
   const fetchCandidates = useCandidatesStore(state => state.fetchCandidates);
   const page = useFiltersStore(state => state.page);
@@ -14,28 +27,11 @@ export const CandidateList = () => {
 
   const { candidates, totalCandidates, totalPages, isLoading, error } = useCandidates();
 
-  // Синхронизация фильтров с URL
   useUrlFilters();
 
   useEffect(() => {
     fetchCandidates();
   }, [fetchCandidates]);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-gray-500">Загрузка кандидатов...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-red-500">{error}</div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-4">
@@ -47,40 +43,51 @@ export const CandidateList = () => {
       </div>
 
       {/* Счётчик */}
-      <div className="text-sm text-gray-500">
-        Найдено кандидатов: <span className="font-medium text-gray-900">{totalCandidates}</span>
+      <div className="text-sm text-slate-500">
+        Найдено кандидатов:{' '}
+        <span className="font-medium text-slate-900">{totalCandidates}</span>
       </div>
 
+      {/* Ошибка */}
+      {error && (
+        <div className="text-center py-8 text-red-500 text-sm">{error}</div>
+      )}
+
       {/* Таблица */}
-      {candidates.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
-          Кандидаты не найдены
-        </div>
-      ) : (
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">ФИО</th>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">Город</th>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">Опыт</th>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">Вердикт</th>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">Статус</th>
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">Стек</th>
-              </tr>
-            </thead>
-            <tbody>
-              {candidates.map(candidate => (
-                <CandidateCard key={candidate.id} candidate={candidate} />
-              ))}
-            </tbody>
-          </table>
-        </div>
+      {!error && (
+        candidates.length === 0 && !isLoading ? (
+          <div className="text-center py-16 text-slate-400 text-sm">
+            Кандидаты не найдены
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+            <table className="w-full">
+              <thead className="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">ФИО</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Город</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Опыт</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Вердикт</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Статус</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Стек</th>
+                </tr>
+              </thead>
+              <tbody>
+                {isLoading
+                  ? Array.from({ length: 5 }, (_, i) => <SkeletonRow key={i} />)
+                  : candidates.map(candidate => (
+                      <CandidateCard key={candidate.id} candidate={candidate} />
+                    ))
+                }
+              </tbody>
+            </table>
+          </div>
+        )
       )}
 
       {/* Пагинация */}
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-1.5">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
             <button
               key={p}
@@ -88,7 +95,7 @@ export const CandidateList = () => {
               className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
                 page === p
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
               {p}

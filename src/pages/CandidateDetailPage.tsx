@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCandidatesStore } from '../store/candidatesStore';
 import { CandidateDetail } from '../components/CandidateDetail/CandidateDetail';
+import { Layout } from '../components/UI/Layout';
 
 export const CandidateDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +12,6 @@ export const CandidateDetailPage = () => {
   const isLoading = useCandidatesStore(state => state.isLoading);
   const fetchCandidates = useCandidatesStore(state => state.fetchCandidates);
 
-  // Если зашли напрямую по URL — загружаем кандидатов
   useEffect(() => {
     if (candidates.length === 0) {
       fetchCandidates();
@@ -22,41 +22,44 @@ export const CandidateDetailPage = () => {
 
   if (isLoading) {
     return (
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex justify-center items-center h-64 text-gray-500">
-          Загрузка...
+      <Layout>
+        <div className="flex justify-center items-center h-64">
+          <div className="flex gap-2 items-center text-slate-400">
+            <div className="w-4 h-4 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"></div>
+            Загрузка...
+          </div>
         </div>
-      </main>
+      </Layout>
     );
   }
 
   if (!candidate) {
     return (
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center py-16">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">404 — Кандидат не найден</h2>
-          <p className="text-gray-500 mb-6">Возможно, он был удалён или ссылка неверна</p>
+      <Layout>
+        <div className="text-center py-24">
+          <p className="text-5xl font-bold text-slate-200 mb-4">404</p>
+          <h2 className="text-xl font-semibold text-slate-900 mb-2">Кандидат не найден</h2>
+          <p className="text-slate-500 mb-8 text-sm">Возможно, он был удалён или ссылка неверна</p>
           <button
             onClick={() => navigate('/candidates')}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
           >
             Вернуться к списку
           </button>
         </div>
-      </main>
+      </Layout>
     );
   }
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8">
+    <Layout>
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors mb-6"
+        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-6"
       >
         ← Назад к списку
       </button>
-
       <CandidateDetail candidate={candidate} />
-    </main>
+    </Layout>
   );
 };
