@@ -13,20 +13,20 @@ export const CandidateCard = memo(({ candidate }: CandidateCardProps) => {
   return (
     <tr
       onClick={() => navigate(`/candidate/${candidate.id}`)}
-      className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
+      className="border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors"
     >
-      <td className="py-3 px-4">
-        <span className="font-medium text-gray-900">{candidate.name}</span>
+      <td className="py-3.5 px-4">
+        <span className="font-medium text-slate-900">{candidate.name}</span>
       </td>
-      <td className="py-3 px-4 text-gray-500 text-sm">{candidate.city}</td>
-      <td className="py-3 px-4 text-gray-500 text-sm">{candidate.total_exp}</td>
-      <td className="py-3 px-4">
+      <td className="py-3.5 px-4 text-slate-500 text-sm">{candidate.city}</td>
+      <td className="py-3.5 px-4 text-slate-500 text-sm">{candidate.total_exp}</td>
+      <td className="py-3.5 px-4">
         <StatusBadge verdict={candidate.vc} verdictLabel={candidate.verdict} />
       </td>
-      <td className="py-3 px-4">
+      <td className="py-3.5 px-4">
         <StatusBadge status={candidate.status} />
       </td>
-      <td className="py-3 px-4 text-gray-500 text-sm max-w-xs truncate">{candidate.stack}</td>
+      <td className="py-3.5 px-4 text-slate-500 text-sm max-w-xs truncate">{candidate.stack}</td>
     </tr>
   );
 });

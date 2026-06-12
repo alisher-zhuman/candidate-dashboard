@@ -4,16 +4,16 @@ const STATUS_CONFIG: Record<
   CandidateStatus,
   { label: string; className: string }
 > = {
-  new: { label: "Новый", className: "bg-gray-100 text-gray-600" },
-  review: { label: "На рассмотрении", className: "bg-blue-100 text-blue-700" },
-  invited: { label: "Приглашён", className: "bg-green-100 text-green-700" },
-  rejected: { label: "Отклонён", className: "bg-red-100 text-red-700" },
+  new: { label: "Новый", className: "bg-slate-100 text-slate-600" },
+  review: { label: "На рассмотрении", className: "bg-blue-50 text-blue-700" },
+  invited: { label: "Приглашён", className: "bg-emerald-50 text-emerald-700" },
+  rejected: { label: "Отклонён", className: "bg-red-50 text-red-600" },
 };
 
 const VERDICT_CONFIG: Record<string, { className: string }> = {
-  "verdict-green": { className: "bg-green-100 text-green-700" },
-  "verdict-orange": { className: "bg-orange-100 text-orange-700" },
-  "verdict-red": { className: "bg-red-100 text-red-700" },
+  "verdict-green": { className: "bg-emerald-50 text-emerald-700" },
+  "verdict-orange": { className: "bg-amber-50 text-amber-700" },
+  "verdict-red": { className: "bg-red-50 text-red-600" },
 };
 
 interface StatusBadgeProps {
@@ -29,11 +29,8 @@ export const StatusBadge = ({
 }: StatusBadgeProps) => {
   if (status) {
     const config = STATUS_CONFIG[status];
-
     return (
-      <span
-        className={`px-2 py-1 rounded-full text-xs font-medium ${config.className}`}
-      >
+      <span className={`inline-flex px-2.5 py-1 rounded-md text-xs font-medium ${config.className}`}>
         {config.label}
       </span>
     );
@@ -42,9 +39,7 @@ export const StatusBadge = ({
   if (verdict && verdictLabel) {
     const config = VERDICT_CONFIG[verdict];
     return (
-      <span
-        className={`px-2 py-1 rounded-full text-xs font-medium ${config.className}`}
-      >
+      <span className={`inline-flex px-2.5 py-1 rounded-md text-xs font-medium ${config.className}`}>
         {verdictLabel}
       </span>
     );
