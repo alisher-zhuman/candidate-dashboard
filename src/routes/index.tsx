@@ -1,22 +1,22 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { CandidatesPage } from '../pages/CandidatesPage';
-import { CandidateDetailPage } from '../pages/CandidateDetailPage';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { CandidatesPage } from "../pages/CandidatesPage";
+import { CandidateDetailPage } from "../pages/CandidateDetailPage";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Navigate to="/candidates" replace />,
   },
   {
-    path: '/candidates',
+    path: "/candidates",
     element: <CandidatesPage />,
   },
   {
-    path: '/candidate/:id',
+    path: "/candidate/:id",
     element: <CandidateDetailPage />,
   },
   {
-    path: '*',
+    path: "*",
     element: <div>404 — Страница не найдена</div>,
   },
 ]);
