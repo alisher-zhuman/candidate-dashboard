@@ -1,17 +1,17 @@
-import { create } from 'zustand';
-import type { Verdict, CandidateStatus } from '../types/candidate';
+import { create } from "zustand";
+import type { Verdict } from "../types/candidate";
 
-type SortField = 'name' | 'total_exp' | 'createdAt';
-type SortOrder = 'asc' | 'desc';
+type SortField = "name" | "total_exp" | "createdAt";
+type SortOrder = "asc" | "desc";
 
 interface FiltersState {
   search: string;
-  verdict: Verdict | 'Все';
+  verdict: Verdict | "Все";
   sortField: SortField;
   sortOrder: SortOrder;
   page: number;
   setSearch: (search: string) => void;
-  setVerdict: (verdict: Verdict | 'Все') => void;
+  setVerdict: (verdict: Verdict | "Все") => void;
   setSortField: (field: SortField) => void;
   setSortOrder: (order: SortOrder) => void;
   setPage: (page: number) => void;
@@ -19,10 +19,10 @@ interface FiltersState {
 }
 
 const initialState = {
-  search: '',
-  verdict: 'Все' as const,
-  sortField: 'createdAt' as SortField,
-  sortOrder: 'desc' as SortOrder,
+  search: "",
+  verdict: "Все" as const,
+  sortField: "createdAt" as SortField,
+  sortOrder: "desc" as SortOrder,
   page: 1,
 };
 
