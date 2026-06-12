@@ -1,7 +1,7 @@
-export type Verdict = 'ПОДХОДИТ' | 'ЧАСТИЧНО' | 'НЕ СООТВЕТСТВУЕТ';
-export type VerdictClass = 'verdict-green' | 'verdict-orange' | 'verdict-red';
-export type CriteriaStatus = 'ok' | 'partial' | 'no';
-export type CandidateStatus = 'new' | 'review' | 'invited' | 'rejected';
+export type Verdict = "ПОДХОДИТ" | "ЧАСТИЧНО" | "НЕ СООТВЕТСТВУЕТ";
+export type VerdictClass = "verdict-green" | "verdict-orange" | "verdict-red";
+export type CriteriaStatus = "ok" | "partial" | "no";
+export type CandidateStatus = "new" | "review" | "invited" | "rejected";
 
 export interface Candidate {
   id: string;
