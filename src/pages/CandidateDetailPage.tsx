@@ -55,9 +55,10 @@ export const CandidateDetailPage = () => {
     <Layout>
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-6 cursor-pointer"
+        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors duration-150 mb-6 cursor-pointer group"
       >
-        ← Назад к списку
+        <span className="transition-transform duration-150 group-hover:-translate-x-0.5">←</span>
+        Назад к списку
       </button>
       <CandidateDetail candidate={candidate} />
     </Layout>

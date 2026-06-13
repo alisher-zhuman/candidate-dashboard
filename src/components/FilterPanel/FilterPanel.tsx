@@ -1,5 +1,6 @@
 import { useFiltersStore } from "../../store/filtersStore";
 import type { Verdict } from "../../types/candidate";
+import { cn } from "../../utils/cn";
 
 type SortField = "name" | "total_exp" | "createdAt";
 
@@ -39,11 +40,12 @@ export const FilterPanel = () => {
           <button
             key={v}
             onClick={() => setVerdict(v)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+            className={cn(
+              "px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer",
               verdict === v
                 ? verdictActiveClass[v]
                 : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-            }`}
+            )}
           >
             {v}
           </button>

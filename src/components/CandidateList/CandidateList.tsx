@@ -6,6 +6,7 @@ import { useUrlFilters } from '../../hooks/useUrlFilters';
 import { CandidateCard } from '../CandidateCard/CandidateCard';
 import { FilterPanel } from '../FilterPanel/FilterPanel';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { cn } from '../../utils/cn';
 
 const SkeletonRow = () => (
   <tr className="border-b border-slate-100">
@@ -96,11 +97,12 @@ export const CandidateList = () => {
             <button
               key={p}
               onClick={() => setPage(p)}
-              className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              className={cn(
+                "w-9 h-9 rounded-lg text-sm font-medium transition-colors cursor-pointer",
                 page === p
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
+                  ? "bg-blue-600 text-white"
+                  : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+              )}
             >
               {p}
             </button>
