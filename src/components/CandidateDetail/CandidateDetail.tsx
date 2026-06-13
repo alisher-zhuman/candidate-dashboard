@@ -1,6 +1,10 @@
 import { memo, useState } from "react";
 import { toast } from "sonner";
-import type { Candidate, CandidateStatus, CriteriaStatus } from "../../types/candidate";
+import type {
+  Candidate,
+  CandidateStatus,
+  CriteriaStatus,
+} from "../../types/candidate";
 import { useCandidatesStore } from "../../store/candidatesStore";
 import { StatusBadge } from "../StatusBadge/StatusBadge";
 
@@ -17,20 +21,27 @@ const STATUS_LABELS: Record<CandidateStatus, string> = {
   rejected: "Отклонён",
 };
 
-const STATUS_OPTIONS: CandidateStatus[] = ["new", "review", "invited", "rejected"];
+const STATUS_OPTIONS: CandidateStatus[] = [
+  "new",
+  "review",
+  "invited",
+  "rejected",
+];
 
 interface CandidateDetailProps {
   candidate: Candidate;
 }
 
 export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
-  const updateStatus = useCandidatesStore((state) => state.updateStatus);
-  
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateStatus = useCandidatesStore((state) => state.updateStatus);
 
   const handleStatusChange = async (status: CandidateStatus) => {
     if (status === candidate.status) return;
+
     setIsUpdating(true);
+
     try {
       await updateStatus(candidate.id, status);
       toast.success(`Статус обновлён: ${STATUS_LABELS[status]}`);
@@ -46,17 +57,24 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
       {/* Шапка */}
       <div className="flex flex-wrap gap-4 items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">{candidate.name}</h1>
+          <h1 className="text-2xl font-bold text-slate-900">
+            {candidate.name}
+          </h1>
           <p className="text-slate-500 mt-1">{candidate.pos_label}</p>
         </div>
         <div className="flex flex-wrap gap-2 items-center">
-          <StatusBadge verdict={candidate.vc} verdictLabel={candidate.verdict} />
+          <StatusBadge
+            verdict={candidate.vc}
+            verdictLabel={candidate.verdict}
+          />
           <StatusBadge status={candidate.status} />
           {/* Смена статуса */}
           <select
             value={candidate.status}
             disabled={isUpdating}
-            onChange={(e) => handleStatusChange(e.target.value as CandidateStatus)}
+            onChange={(e) =>
+              handleStatusChange(e.target.value as CandidateStatus)
+            }
             className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
           >
             {STATUS_OPTIONS.map((s) => (
@@ -66,7 +84,9 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
             ))}
           </select>
           {isUpdating && (
-            <span className="text-xs text-slate-400 animate-pulse">Сохраняем...</span>
+            <span className="text-xs text-slate-400 animate-pulse">
+              Сохраняем...
+            </span>
           )}
         </div>
       </div>
@@ -100,7 +120,9 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
       <div className="bg-white rounded-lg border border-slate-200 p-4">
         <h2 className="font-semibold text-slate-900 mb-3">
           Опыт работы{" "}
-          <span className="text-slate-400 font-normal">({candidate.total_exp})</span>
+          <span className="text-slate-400 font-normal">
+            ({candidate.total_exp})
+          </span>
         </h2>
         <div className="space-y-3">
           {candidate.exp.map(([period, company, position, duration], i) => (
@@ -151,7 +173,9 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
 
       {/* Вопросы для собеседования */}
       <div className="bg-white rounded-lg border border-slate-200 p-4">
-        <h2 className="font-semibold text-slate-900 mb-3">Вопросы для собеседования</h2>
+        <h2 className="font-semibold text-slate-900 mb-3">
+          Вопросы для собеседования
+        </h2>
         <ul className="space-y-2">
           {candidate.questions.map((q, i) => (
             <li key={i} className="flex gap-3 text-sm">
@@ -165,7 +189,9 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => {
       {/* Summary */}
       <div className="bg-blue-50 rounded-lg border border-blue-100 p-4">
         <h2 className="font-semibold text-slate-900 mb-2">Summary</h2>
-        <p className="text-sm text-slate-700 leading-relaxed">{candidate.summary}</p>
+        <p className="text-sm text-slate-700 leading-relaxed">
+          {candidate.summary}
+        </p>
       </div>
     </div>
   );
