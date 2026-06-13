@@ -17,7 +17,6 @@ interface CandidateDetailProps {
 
 export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
   <div className="space-y-6">
-    {/* Шапка */}
     <div className="flex flex-wrap gap-4 items-start justify-between">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">{candidate.name}</h1>
@@ -31,7 +30,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </div>
     </div>
 
-    {/* Контакты */}
     <Section title="Контакты">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
         <div>
@@ -57,7 +55,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </div>
     </Section>
 
-    {/* Опыт */}
     <Section
       title={
         <>
@@ -83,7 +80,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </div>
     </Section>
 
-    {/* Стек и образование */}
     <Section title="Стек">
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2">
@@ -104,7 +100,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </div>
     </Section>
 
-    {/* Критерии оценки */}
     <Section title="Критерии оценки">
       <div className="space-y-2">
         {candidate.criteria.map(([status, description], i) => (
@@ -116,7 +111,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </div>
     </Section>
 
-    {/* Вопросы для собеседования */}
     <Section title="Вопросы для собеседования">
       <ul className="space-y-2">
         {candidate.questions.map((q, i) => (
@@ -128,7 +122,6 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
       </ul>
     </Section>
 
-    {/* Summary */}
     <Section title="Summary" className="bg-blue-50 border-blue-100">
       <p className="text-sm text-slate-700 leading-relaxed">
         {candidate.summary}

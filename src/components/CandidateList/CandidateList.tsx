@@ -46,24 +46,20 @@ export const CandidateList = () => {
 
   return (
     <div className="space-y-4">
-      {/* Поиск и фильтры */}
       <div className="space-y-3">
         <SearchBar />
         <FilterPanel />
       </div>
 
-      {/* Счётчик */}
       <div className="text-sm text-slate-500">
         Найдено кандидатов:{" "}
         <span className="font-medium text-slate-900">{totalCandidates}</span>
       </div>
 
-      {/* Ошибка */}
       {error && (
         <div className="text-center py-8 text-red-500 text-sm">{error}</div>
       )}
 
-      {/* Таблица */}
       {!error &&
         (candidates.length === 0 && !isLoading ? (
           <div className="text-center py-16 text-slate-400 text-sm">
@@ -100,7 +96,7 @@ export const CandidateList = () => {
                 className="animate-fade-in-soft"
               >
                 {isLoading
-                  ? Array.from({ length: 5 }, (_, i) => <SkeletonRow key={i} />)
+                  ? Array.from({ length: 10 }, (_, i) => <SkeletonRow key={i} />)
                   : candidates.map((candidate) => (
                       <CandidateCard key={candidate.id} candidate={candidate} />
                     ))}
@@ -109,7 +105,6 @@ export const CandidateList = () => {
           </div>
         ))}
 
-      {/* Пагинация */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-1.5">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (

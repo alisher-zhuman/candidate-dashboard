@@ -23,18 +23,15 @@ export const useCandidates = () => {
   const filtered = useMemo(() => {
     let result: Candidate[] = [...candidates];
 
-    // Фильтрация по вердикту
     if (verdict !== "Все") {
       result = result.filter((c) => c.verdict === verdict);
     }
 
-    // Поиск по ФИО
     if (debouncedSearch.trim()) {
       const query = debouncedSearch.toLowerCase();
       result = result.filter((c) => c.name.toLowerCase().includes(query));
     }
 
-    // Сортировка
     result.sort((a, b) => {
       if (sortField === "name") {
         return sortOrder === "asc"

@@ -35,7 +35,6 @@ export const FilterPanel = () => {
 
   return (
     <div className="flex flex-wrap gap-3 items-center">
-      {/* Фильтр по вердикту */}
       <div className="flex gap-2 flex-wrap">
         {VERDICTS.map((v) => (
           <button
@@ -53,7 +52,6 @@ export const FilterPanel = () => {
         ))}
       </div>
 
-      {/* Сортировка */}
       <div className="flex gap-2 items-center sm:ml-auto w-full sm:w-auto">
         <select
           value={sortField}
