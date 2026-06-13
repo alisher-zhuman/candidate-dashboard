@@ -1,28 +1,11 @@
 import { useFiltersStore } from "../../store/filtersStore";
-import type { Verdict } from "../../types/candidate";
+import type { SortField } from "../../types/candidate";
+import {
+  SORT_OPTIONS,
+  VERDICTS,
+  VERDICT_FILTER_CLASS,
+} from "../../constants/candidate";
 import { cn } from "../../utils/cn";
-
-type SortField = "name" | "total_exp" | "createdAt";
-
-const VERDICTS: (Verdict | "Все")[] = [
-  "Все",
-  "ПОДХОДИТ",
-  "ЧАСТИЧНО",
-  "НЕ СООТВЕТСТВУЕТ",
-];
-
-const SORT_OPTIONS: { value: SortField; label: string }[] = [
-  { value: "createdAt", label: "По дате" },
-  { value: "name", label: "По имени" },
-  { value: "total_exp", label: "По опыту" },
-];
-
-const verdictActiveClass: Record<string, string> = {
-  Все: "bg-slate-900 text-white",
-  ПОДХОДИТ: "bg-emerald-600 text-white",
-  ЧАСТИЧНО: "bg-amber-500 text-white",
-  "НЕ СООТВЕТСТВУЕТ": "bg-red-500 text-white",
-};
 
 export const FilterPanel = () => {
   const verdict = useFiltersStore((state) => state.verdict);
@@ -43,7 +26,7 @@ export const FilterPanel = () => {
             className={cn(
               "px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer",
               verdict === v
-                ? verdictActiveClass[v]
+                ? VERDICT_FILTER_CLASS[v]
                 : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50",
             )}
           >

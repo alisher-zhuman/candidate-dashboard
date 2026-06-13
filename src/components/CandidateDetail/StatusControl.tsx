@@ -3,20 +3,7 @@ import { toast } from "sonner";
 
 import type { Candidate, CandidateStatus } from "../../types/candidate";
 import { useCandidatesStore } from "../../store/candidatesStore";
-
-const STATUS_LABELS: Record<CandidateStatus, string> = {
-  new: "Новый",
-  review: "На рассмотрении",
-  invited: "Приглашён",
-  rejected: "Отклонён",
-};
-
-const STATUS_OPTIONS: CandidateStatus[] = [
-  "new",
-  "review",
-  "invited",
-  "rejected",
-];
+import { STATUS_LABELS, STATUS_OPTIONS } from "../../constants/candidate";
 
 interface StatusControlProps {
   candidate: Candidate;

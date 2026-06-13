@@ -2,19 +2,13 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { useFiltersStore } from "../store/filtersStore";
-import type { Verdict } from "../types/candidate";
-
-type SortField = "name" | "total_exp" | "createdAt";
-type SortOrder = "asc" | "desc";
-
-const VERDICTS: (Verdict | "Все")[] = [
-  "Все",
-  "ПОДХОДИТ",
-  "ЧАСТИЧНО",
-  "НЕ СООТВЕТСТВУЕТ",
-];
-const SORT_FIELDS: SortField[] = ["name", "total_exp", "createdAt"];
-const SORT_ORDERS: SortOrder[] = ["asc", "desc"];
+import type { SortField, SortOrder, VerdictFilter } from "../types/candidate";
+import {
+  DEFAULT_FILTERS,
+  SORT_FIELDS,
+  SORT_ORDERS,
+  VERDICTS,
+} from "../constants/candidate";
 
 export const useUrlFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,18 +27,22 @@ export const useUrlFilters = () => {
 
   // Читаем из URL при маунте
   useEffect(() => {
-    const urlSearch = searchParams.get("search") ?? "";
-    const urlVerdict = searchParams.get("verdict") ?? "Все";
-    const urlSortField = searchParams.get("sortField") ?? "createdAt";
-    const urlSortOrder = searchParams.get("sortOrder") ?? "desc";
-    const urlPage = Number(searchParams.get("page") ?? "1");
+    const urlSearch = searchParams.get("search") ?? DEFAULT_FILTERS.search;
+    const urlVerdict = searchParams.get("verdict") ?? DEFAULT_FILTERS.verdict;
+    const urlSortField =
+      searchParams.get("sortField") ?? DEFAULT_FILTERS.sortField;
+    const urlSortOrder =
+      searchParams.get("sortOrder") ?? DEFAULT_FILTERS.sortOrder;
+    const urlPage = Number(
+      searchParams.get("page") ?? String(DEFAULT_FILTERS.page),
+    );
 
     if (urlSearch) {
       setSearch(urlSearch);
     }
 
-    if (VERDICTS.includes(urlVerdict as Verdict | "Все")) {
-      setVerdict(urlVerdict as Verdict | "Все");
+    if (VERDICTS.includes(urlVerdict as VerdictFilter)) {
+      setVerdict(urlVerdict as VerdictFilter);
     }
 
     if (SORT_FIELDS.includes(urlSortField as SortField)) {
@@ -64,10 +62,10 @@ export const useUrlFilters = () => {
   useEffect(() => {
     const params: Record<string, string> = {};
     if (search) params.search = search;
-    if (verdict !== "Все") params.verdict = verdict;
-    if (sortField !== "createdAt") params.sortField = sortField;
-    if (sortOrder !== "desc") params.sortOrder = sortOrder;
-    if (page > 1) params.page = String(page);
+    if (verdict !== DEFAULT_FILTERS.verdict) params.verdict = verdict;
+    if (sortField !== DEFAULT_FILTERS.sortField) params.sortField = sortField;
+    if (sortOrder !== DEFAULT_FILTERS.sortOrder) params.sortOrder = sortOrder;
+    if (page > DEFAULT_FILTERS.page) params.page = String(page);
     setSearchParams(params, { replace: true });
   }, [search, verdict, sortField, sortOrder, page]);
 };

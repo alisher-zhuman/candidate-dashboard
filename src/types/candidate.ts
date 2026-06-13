@@ -4,6 +4,12 @@ export type VerdictClass = "verdict-green" | "verdict-orange" | "verdict-red";
 export type CriteriaStatus = "ok" | "partial" | "no";
 export type CandidateStatus = "new" | "review" | "invited" | "rejected";
 
+export type SortField = "name" | "total_exp" | "createdAt";
+export type SortOrder = "asc" | "desc";
+
+// "Все" — сентинел "не фильтровать по вердикту"
+export type VerdictFilter = Verdict | "Все";
+
 export interface Candidate {
   id: string;
   name: string;
