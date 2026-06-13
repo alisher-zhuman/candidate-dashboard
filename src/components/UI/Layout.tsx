@@ -17,12 +17,20 @@ export const Layout = ({ children }: LayoutProps) => {
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity duration-150"
           >
             <img src="/icons/logo.svg" alt="logo" className="w-7 h-7" />
-            <span className="font-semibold text-slate-900">Candidate Dashboard</span>
+
+            <span className="font-semibold text-slate-900">
+              Candidate Dashboard
+            </span>
           </button>
+
           <span className="text-sm text-slate-400">HR Dashboard</span>
         </div>
       </header>
-      <div key={pathname} className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-fade-in">
+
+      <div
+        key={pathname}
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-fade-in"
+      >
         {children}
       </div>
     </div>

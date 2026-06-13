@@ -41,14 +41,17 @@ export const useCandidates = () => {
           ? a.name.localeCompare(b.name)
           : b.name.localeCompare(a.name);
       }
+
       if (sortField === "createdAt") {
         return sortOrder === "asc"
           ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
           : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
+
       if (sortField === "total_exp") {
         const getExp = (exp: string) =>
           parseFloat(exp.replace("~", "").replace(" г.", ""));
+
         return sortOrder === "asc"
           ? getExp(a.total_exp) - getExp(b.total_exp)
           : getExp(b.total_exp) - getExp(a.total_exp);

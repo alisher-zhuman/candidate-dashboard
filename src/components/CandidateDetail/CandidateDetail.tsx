@@ -38,12 +38,14 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
           <span className="text-slate-500">Email: </span>
           <span>{candidate.email}</span>
         </div>
+
         {candidate.phone && (
           <div>
             <span className="text-slate-500">Телефон: </span>
             <span>{candidate.phone}</span>
           </div>
         )}
+
         <div>
           <span className="text-slate-500">Telegram: </span>
           <span>{candidate.tg}</span>
@@ -94,6 +96,7 @@ export const CandidateDetail = memo(({ candidate }: CandidateDetailProps) => (
             </span>
           ))}
         </div>
+
         <div className="text-sm">
           <span className="text-slate-500">Образование: </span>
           <span>{candidate.edu}</span>

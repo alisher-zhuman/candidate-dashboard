@@ -18,9 +18,9 @@ const SORT_OPTIONS: { value: SortField; label: string }[] = [
 ];
 
 const verdictActiveClass: Record<string, string> = {
-  "Все": "bg-slate-900 text-white",
-  "ПОДХОДИТ": "bg-emerald-600 text-white",
-  "ЧАСТИЧНО": "bg-amber-500 text-white",
+  Все: "bg-slate-900 text-white",
+  ПОДХОДИТ: "bg-emerald-600 text-white",
+  ЧАСТИЧНО: "bg-amber-500 text-white",
   "НЕ СООТВЕТСТВУЕТ": "bg-red-500 text-white",
 };
 
@@ -45,7 +45,7 @@ export const FilterPanel = () => {
               "px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer",
               verdict === v
                 ? verdictActiveClass[v]
-                : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50",
             )}
           >
             {v}
@@ -74,15 +74,12 @@ export const FilterPanel = () => {
           <span
             className={cn(
               "inline-block transition-transform duration-200",
-              sortOrder === "desc" && "rotate-180"
+              sortOrder === "desc" && "rotate-180",
             )}
           >
             ↑
           </span>
-          <span
-            key={sortOrder}
-            className="animate-fade-in-soft w-32 text-left"
-          >
+          <span key={sortOrder} className="animate-fade-in-soft w-32 text-left">
             {sortOrder === "asc" ? "По возрастанию" : "По убыванию"}
           </span>
         </button>

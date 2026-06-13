@@ -39,14 +39,25 @@ export const useUrlFilters = () => {
     const urlSortOrder = searchParams.get("sortOrder") ?? "desc";
     const urlPage = Number(searchParams.get("page") ?? "1");
 
-    if (urlSearch) setSearch(urlSearch);
-    if (VERDICTS.includes(urlVerdict as Verdict | "Все"))
+    if (urlSearch) {
+      setSearch(urlSearch);
+    }
+
+    if (VERDICTS.includes(urlVerdict as Verdict | "Все")) {
       setVerdict(urlVerdict as Verdict | "Все");
-    if (SORT_FIELDS.includes(urlSortField as SortField))
+    }
+
+    if (SORT_FIELDS.includes(urlSortField as SortField)) {
       setSortField(urlSortField as SortField);
-    if (SORT_ORDERS.includes(urlSortOrder as SortOrder))
+    }
+
+    if (SORT_ORDERS.includes(urlSortOrder as SortOrder)) {
       setSortOrder(urlSortOrder as SortOrder);
-    if (!isNaN(urlPage) && urlPage > 0) setPage(urlPage);
+    }
+
+    if (!isNaN(urlPage) && urlPage > 0) {
+      setPage(urlPage);
+    }
   }, []);
 
   // Пишем в URL при изменении фильтров

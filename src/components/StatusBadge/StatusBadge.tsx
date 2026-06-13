@@ -30,8 +30,14 @@ export const StatusBadge = ({
 }: StatusBadgeProps) => {
   if (status) {
     const config = STATUS_CONFIG[status];
+
     return (
-      <span className={cn("inline-flex px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-150", config.className)}>
+      <span
+        className={cn(
+          "inline-flex px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-150",
+          config.className,
+        )}
+      >
         {config.label}
       </span>
     );
@@ -39,8 +45,14 @@ export const StatusBadge = ({
 
   if (verdict && verdictLabel) {
     const config = VERDICT_CONFIG[verdict];
+
     return (
-      <span className={cn("inline-flex px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-150", config.className)}>
+      <span
+        className={cn(
+          "inline-flex px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-150",
+          config.className,
+        )}
+      >
         {verdictLabel}
       </span>
     );

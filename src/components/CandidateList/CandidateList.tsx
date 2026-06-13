@@ -1,38 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { useCandidatesStore } from '../../store/candidatesStore';
-import { useFiltersStore } from '../../store/filtersStore';
-import { useCandidates } from '../../hooks/useCandidates';
-import { useUrlFilters } from '../../hooks/useUrlFilters';
-import { CandidateCard } from '../CandidateCard/CandidateCard';
-import { FilterPanel } from '../FilterPanel/FilterPanel';
-import { SearchBar } from '../SearchBar/SearchBar';
-import { cn } from '../../utils/cn';
+import { useCandidatesStore } from "../../store/candidatesStore";
+import { useFiltersStore } from "../../store/filtersStore";
+import { useCandidates } from "../../hooks/useCandidates";
+import { useUrlFilters } from "../../hooks/useUrlFilters";
+import { CandidateCard } from "../CandidateCard/CandidateCard";
+import { FilterPanel } from "../FilterPanel/FilterPanel";
+import { SearchBar } from "../SearchBar/SearchBar";
+import { cn } from "../../utils/cn";
 
 const SkeletonRow = () => (
   <tr className="border-b border-slate-100">
     {[
-      { w: 140, cls: '' },
-      { w: 80,  cls: 'hidden sm:table-cell' },
-      { w: 60,  cls: 'hidden sm:table-cell' },
-      { w: 90,  cls: '' },
-      { w: 80,  cls: '' },
-      { w: 160, cls: 'hidden lg:table-cell' },
+      { w: 140, cls: "" },
+      { w: 80, cls: "hidden sm:table-cell" },
+      { w: 60, cls: "hidden sm:table-cell" },
+      { w: 90, cls: "" },
+      { w: 80, cls: "" },
+      { w: 160, cls: "hidden lg:table-cell" },
     ].map(({ w, cls }, i) => (
       <td key={i} className={`py-3.5 px-4 ${cls}`}>
-        <div className="h-4 bg-slate-200 rounded animate-pulse" style={{ width: w }} />
+        <div
+          className="h-4 bg-slate-200 rounded animate-pulse"
+          style={{ width: w }}
+        />
       </td>
     ))}
   </tr>
 );
 
 export const CandidateList = () => {
-  const fetchCandidates = useCandidatesStore(state => state.fetchCandidates);
+  const fetchCandidates = useCandidatesStore((state) => state.fetchCandidates);
 
-  const page = useFiltersStore(state => state.page);
-  const setPage = useFiltersStore(state => state.setPage);
+  const page = useFiltersStore((state) => state.page);
+  const setPage = useFiltersStore((state) => state.setPage);
 
-  const { candidates, totalCandidates, totalPages, isLoading, error } = useCandidates();
+  const { candidates, totalCandidates, totalPages, isLoading, error } =
+    useCandidates();
 
   useUrlFilters();
 
@@ -42,7 +46,6 @@ export const CandidateList = () => {
 
   return (
     <div className="space-y-4">
-
       {/* Поиск и фильтры */}
       <div className="space-y-3">
         <SearchBar />
@@ -51,7 +54,7 @@ export const CandidateList = () => {
 
       {/* Счётчик */}
       <div className="text-sm text-slate-500">
-        Найдено кандидатов:{' '}
+        Найдено кандидатов:{" "}
         <span className="font-medium text-slate-900">{totalCandidates}</span>
       </div>
 
@@ -61,8 +64,8 @@ export const CandidateList = () => {
       )}
 
       {/* Таблица */}
-      {!error && (
-        candidates.length === 0 && !isLoading ? (
+      {!error &&
+        (candidates.length === 0 && !isLoading ? (
           <div className="text-center py-16 text-slate-400 text-sm">
             Кандидаты не найдены
           </div>
@@ -71,32 +74,45 @@ export const CandidateList = () => {
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">ФИО</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">Город</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">Опыт</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Вердикт</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Статус</th>
-                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">Стек</th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    ФИО
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">
+                    Город
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">
+                    Опыт
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    Вердикт
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    Статус
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">
+                    Стек
+                  </th>
                 </tr>
               </thead>
               {/* key по списку id — мягкий fade при смене страницы или фильтра */}
-              <tbody key={candidates.map(c => c.id).join(',')} className="animate-fade-in-soft">
+              <tbody
+                key={candidates.map((c) => c.id).join(",")}
+                className="animate-fade-in-soft"
+              >
                 {isLoading
                   ? Array.from({ length: 5 }, (_, i) => <SkeletonRow key={i} />)
-                  : candidates.map(candidate => (
+                  : candidates.map((candidate) => (
                       <CandidateCard key={candidate.id} candidate={candidate} />
-                    ))
-                }
+                    ))}
               </tbody>
             </table>
           </div>
-        )
-      )}
+        ))}
 
       {/* Пагинация */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-1.5">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
             <button
               key={p}
               onClick={() => setPage(p)}
@@ -104,7 +120,7 @@ export const CandidateList = () => {
                 "w-9 h-9 rounded-lg text-sm font-medium transition-colors cursor-pointer",
                 page === p
                   ? "bg-blue-600 text-white"
-                  : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                  : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50",
               )}
             >
               {p}
@@ -112,7 +128,6 @@ export const CandidateList = () => {
           ))}
         </div>
       )}
-
     </div>
   );
 };
