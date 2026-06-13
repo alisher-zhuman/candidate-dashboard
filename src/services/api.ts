@@ -9,6 +9,13 @@ export const api = {
     return mockCandidates;
   },
 
+  // Большой набор для виртуализации — грузится отдельным чанком по требованию
+  getLargeCandidates: async (): Promise<Candidate[]> => {
+    await delay(500);
+    const { default: data } = await import("../../mock/candidates-large.json");
+    return data as Candidate[];
+  },
+
   updateStatus: async (
     id: string,
     status: CandidateStatus,
