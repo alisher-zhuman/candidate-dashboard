@@ -28,6 +28,7 @@ const SkeletonRow = () => (
 
 export const CandidateList = () => {
   const fetchCandidates = useCandidatesStore(state => state.fetchCandidates);
+
   const page = useFiltersStore(state => state.page);
   const setPage = useFiltersStore(state => state.setPage);
 
@@ -66,7 +67,7 @@ export const CandidateList = () => {
             Кандидаты не найдены
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm min-h-[529px]">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm min-h-132">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>

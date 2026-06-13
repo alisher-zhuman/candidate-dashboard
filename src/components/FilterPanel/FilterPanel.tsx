@@ -28,6 +28,7 @@ export const FilterPanel = () => {
   const verdict = useFiltersStore((state) => state.verdict);
   const sortField = useFiltersStore((state) => state.sortField);
   const sortOrder = useFiltersStore((state) => state.sortOrder);
+
   const setVerdict = useFiltersStore((state) => state.setVerdict);
   const setSortField = useFiltersStore((state) => state.setSortField);
   const setSortOrder = useFiltersStore((state) => state.setSortOrder);
