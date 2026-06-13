@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import { CandidatesPage } from "../pages/CandidatesPage";
 import { CandidateDetailPage } from "../pages/CandidateDetailPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <div>404 — Страница не найдена</div>,
+    element: <NotFoundPage />,
   },
 ]);
