@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# Candidate Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Дашборд для HR-специалиста: просмотр списка кандидатов, анализ их соответствия вакансии и управление статусами обработки резюме.
 
-Currently, two official plugins are available:
+Тестовое задание на позицию React-разработчика (CV-Scan).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Стек
 
-## React Compiler
+- **React 18** + **TypeScript** (без `any`)
+- **Vite** — сборка и dev-сервер
+- **Zustand** — state management (сторы кандидатов и фильтров)
+- **React Router v7** — маршрутизация (`createBrowserRouter`)
+- **Tailwind CSS v4** — стилизация
+- **react-window** — виртуализация больших списков
+- **sonner** — toast-уведомления
+- **Jest** + **React Testing Library** — тесты
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> Почему выбраны именно эти инструменты, и о знании FSD / Zod / React Query — в [DECISIONS.md](./DECISIONS.md).
 
-## Expanding the ESLint configuration
+## Запуск
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install      # установка зависимостей
+pnpm dev          # дев-сервер (http://localhost:5173)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Прочие команды:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm build         # production-сборка
+pnpm preview       # предпросмотр сборки
+pnpm test          # запуск тестов
+pnpm test:coverage # тесты с отчётом покрытия
+pnpm lint          # линтер
 ```
+
+## Возможности
+
+### Список кандидатов
+- Таблица: ФИО, город, опыт, вердикт (цветовая индикация), статус, стек
+- Фильтрация по вердикту: Все / ПОДХОДИТ / ЧАСТИЧНО / НЕ СООТВЕТСТВУЕТ
+- Поиск по ФИО с debounce 300мс
+- Сортировка по имени, опыту и дате добавления (по возрастанию/убыванию)
+- Пагинация по 10 кандидатов
+- Состояние фильтров сохраняется в URL (query-параметры) — ссылку можно скинуть с уже применёнными фильтрами
+- Адаптивная вёрстка, состояния loading / пустой список / ошибка
+
+### Карточка кандидата (`/candidate/:id`)
+- Полная информация: контакты, опыт, образование, стек
+- Блоки «Критерии оценки» (индикация ok / partial / no), «Вопросы для собеседования», «Summary»
+- Кнопка «Назад» с сохранением фильтров
+- Обработка 404
+
+### Управление статусами
+- Смена статуса: Новый → На рассмотрении → Приглашён → Отклонён
+- Оптимистичное обновление с откатом при ошибке API
+- Loading-состояние во время запроса
+- Toast-уведомления об успехе / ошибке
+
+### Оптимизация
+- Виртуализация большого списка (120 кандидатов) через `react-window` — в DOM только видимые строки
+- Переключатель режимов: пагинация (25) ↔ виртуализация (120)
+- `useMemo` для фильтрации/сортировки, `React.memo` на строках и карточках
+- Ленивая загрузка тяжёлого режима и его данных (`React.lazy` + динамический `import()`) — не висят в основном бандле
+- Cleanup в эффектах (нет утечек памяти)
+
+## Структура проекта
+
+```
+src/
+├── components/        # UI-компоненты (тест лежит рядом с компонентом)
+│   ├── CandidateCard/
+│   ├── CandidateDetail/    # Section, StatusControl
+│   ├── CandidateList/      # обычный и виртуализированный список
+│   ├── FilterPanel/
+│   ├── SearchBar/
+│   ├── StatusBadge/
+│   └── UI/                 # Layout, MessageState
+├── pages/             # страницы-роуты
+├── hooks/             # useCandidates, useDebounce, useUrlFilters, useEnsureCandidates
+├── store/             # Zustand-сторы (candidates, filters)
+├── services/          # api (мок) + данные
+├── constants/         # доменные константы (лейблы, цвета, дефолты)
+├── types/             # типы домена
+├── utils/             # cn()
+└── test/              # фикстуры и хелперы для тестов
+```
+
+## Тестирование
+
+27 тестов в 10 файлах, покрытие ~88%. Покрыто:
+
+- **Unit**: фильтрация, поиск с debounce, сортировка, пагинация, цвета вердикта, синхронизация с URL
+- **Component**: фильтры через клики, edge cases списка (пусто / ошибка), оптимистичное обновление и откат статуса, виртуализация
+- **Integration**: переход список → детальная, 404
+
+API и toast-уведомления мокаются, каждый тест изолирован (сброс сторов в `beforeEach`).
+
+## API
+
+Реальный бэкенд отсутствует — данные берутся из моков (`mock/candidates.json` — 25 кандидатов, `mock/candidates-large.json` — 120). Слой `services/api.ts` имитирует сетевые задержки и случайные ошибки, чтобы продемонстрировать loading-состояния и обработку ошибок.
