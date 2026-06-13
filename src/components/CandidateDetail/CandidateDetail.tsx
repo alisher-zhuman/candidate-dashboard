@@ -1,5 +1,6 @@
 import { memo, useState } from "react";
 import { toast } from "sonner";
+
 import type {
   Candidate,
   CandidateStatus,

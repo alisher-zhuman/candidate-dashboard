@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 import type { Candidate, CandidateStatus } from "../types/candidate";
 import { api } from "../services/api";
 

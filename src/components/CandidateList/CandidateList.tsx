@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useCandidatesStore } from '../../store/candidatesStore';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useCandidates } from '../../hooks/useCandidates';

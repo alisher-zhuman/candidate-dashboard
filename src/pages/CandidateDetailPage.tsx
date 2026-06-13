@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
 import { useCandidatesStore } from '../store/candidatesStore';
 import { CandidateDetail } from '../components/CandidateDetail/CandidateDetail';
 import { Layout } from '../components/UI/Layout';

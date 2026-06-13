@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import type { Candidate } from '../../types/candidate';
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 import { cn } from '../../utils/cn';

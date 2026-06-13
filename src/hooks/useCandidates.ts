@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+
 import { useCandidatesStore } from "../store/candidatesStore";
 import { useFiltersStore } from "../store/filtersStore";
 import { useDebounce } from "./useDebounce";

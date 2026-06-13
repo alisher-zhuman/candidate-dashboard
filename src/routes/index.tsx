@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+
 import { CandidatesPage } from "../pages/CandidatesPage";
 import { CandidateDetailPage } from "../pages/CandidateDetailPage";
 

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import { useFiltersStore } from "../store/filtersStore";
 import type { Verdict } from "../types/candidate";
 
