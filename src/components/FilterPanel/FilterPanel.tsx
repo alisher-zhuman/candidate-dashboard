@@ -68,9 +68,22 @@ export const FilterPanel = () => {
 
         <button
           onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-          className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer active:scale-95"
         >
-          {sortOrder === "asc" ? "↑ По возрастанию" : "↓ По убыванию"}
+          <span
+            className={cn(
+              "inline-block transition-transform duration-200",
+              sortOrder === "desc" && "rotate-180"
+            )}
+          >
+            ↑
+          </span>
+          <span
+            key={sortOrder}
+            className="animate-fade-in-soft w-32 text-left"
+          >
+            {sortOrder === "asc" ? "По возрастанию" : "По убыванию"}
+          </span>
         </button>
       </div>
     </div>

@@ -66,7 +66,7 @@ export const CandidateList = () => {
             Кандидаты не найдены
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm min-h-[529px]">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
@@ -78,7 +78,8 @@ export const CandidateList = () => {
                   <th className="py-3 px-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">Стек</th>
                 </tr>
               </thead>
-              <tbody>
+              {/* key по списку id — мягкий fade при смене страницы или фильтра */}
+              <tbody key={candidates.map(c => c.id).join(',')} className="animate-fade-in-soft">
                 {isLoading
                   ? Array.from({ length: 5 }, (_, i) => <SkeletonRow key={i} />)
                   : candidates.map(candidate => (
