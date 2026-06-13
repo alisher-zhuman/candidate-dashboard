@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useCandidatesStore } from "../store/candidatesStore";
 import { useFiltersStore } from "../store/filtersStore";
 import { useDebounce } from "./useDebounce";
 import type { Candidate } from "../types/candidate";
+import { ALL_VERDICTS } from "../constants/candidate";
 
 const CANDIDATES_PER_PAGE = 10;
 
@@ -17,13 +18,14 @@ export const useCandidates = () => {
   const sortField = useFiltersStore((state) => state.sortField);
   const sortOrder = useFiltersStore((state) => state.sortOrder);
   const page = useFiltersStore((state) => state.page);
+  const setPage = useFiltersStore((state) => state.setPage);
 
   const debouncedSearch = useDebounce(search, 300);
 
   const filtered = useMemo(() => {
     let result: Candidate[] = [...candidates];
 
-    if (verdict !== "Все") {
+    if (verdict !== ALL_VERDICTS) {
       result = result.filter((c) => c.verdict === verdict);
     }
 
@@ -60,9 +62,19 @@ export const useCandidates = () => {
   }, [candidates, debouncedSearch, verdict, sortField, sortOrder]);
 
   const totalPages = Math.ceil(filtered.length / CANDIDATES_PER_PAGE);
+
+  // Страница вышла за пределы (напр. ?page=99 в URL) — возвращаем на последнюю
+  useEffect(() => {
+    if (totalPages > 0 && page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages, setPage]);
+
+  // safePage защищает срез от пустого результата в момент до коррекции стора
+  const safePage = Math.min(page, Math.max(1, totalPages));
   const paginated = filtered.slice(
-    (page - 1) * CANDIDATES_PER_PAGE,
-    page * CANDIDATES_PER_PAGE,
+    (safePage - 1) * CANDIDATES_PER_PAGE,
+    safePage * CANDIDATES_PER_PAGE,
   );
 
   return {

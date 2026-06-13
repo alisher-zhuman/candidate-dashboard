@@ -35,6 +35,7 @@ export const StatusControl = ({ candidate }: StatusControlProps) => {
       <select
         value={candidate.status}
         disabled={isUpdating}
+        aria-label="Изменить статус кандидата"
         onChange={(e) => handleStatusChange(e.target.value as CandidateStatus)}
         className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
       >

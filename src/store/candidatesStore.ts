@@ -17,6 +17,9 @@ export const useCandidatesStore = create<CandidatesState>((set, get) => ({
   error: null,
 
   fetchCandidates: async () => {
+    // Защита от параллельного/повторного запроса (в т.ч. StrictMode в dev)
+    if (get().isLoading) return;
+
     set({ isLoading: true, error: null });
 
     try {

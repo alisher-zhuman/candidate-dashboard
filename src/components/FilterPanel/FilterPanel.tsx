@@ -38,6 +38,7 @@ export const FilterPanel = () => {
       <div className="flex gap-2 items-center sm:ml-auto w-full sm:w-auto">
         <select
           value={sortField}
+          aria-label="Поле сортировки"
           onChange={(e) => setSortField(e.target.value as SortField)}
           className="px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 cursor-pointer"
         >
@@ -53,6 +54,7 @@ export const FilterPanel = () => {
           className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 bg-white rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer active:scale-95"
         >
           <span
+            aria-hidden="true"
             className={cn(
               "inline-block transition-transform duration-200",
               sortOrder === "desc" && "rotate-180",

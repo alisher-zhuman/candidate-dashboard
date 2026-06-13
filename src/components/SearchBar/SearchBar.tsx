@@ -24,6 +24,7 @@ export const SearchBar = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Поиск по ФИО..."
+        aria-label="Поиск по ФИО"
         className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
       />
     </div>
