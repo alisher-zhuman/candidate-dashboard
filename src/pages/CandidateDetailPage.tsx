@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useCandidatesStore } from "../store/candidatesStore";
 import { CandidateDetail } from "../components/CandidateDetail/CandidateDetail";
 import { Layout } from "../components/UI/Layout";
+import { MessageState } from "../components/UI/MessageState";
 
 export const CandidateDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -37,24 +38,15 @@ export const CandidateDetailPage = () => {
   if (!candidate) {
     return (
       <Layout>
-        <div className="text-center py-24">
-          <p className="text-5xl font-bold text-slate-200 mb-4">404</p>
-
-          <h2 className="text-xl font-semibold text-slate-900 mb-2">
-            Кандидат не найден
-          </h2>
-
-          <p className="text-slate-500 mb-8 text-sm">
-            Возможно, он был удалён или ссылка неверна
-          </p>
-
-          <button
-            onClick={() => navigate("/candidates")}
-            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-          >
-            Вернуться к списку
-          </button>
-        </div>
+        <MessageState
+          code="404"
+          title="Кандидат не найден"
+          description="Возможно, он был удалён или ссылка неверна"
+          action={{
+            label: "Вернуться к списку",
+            onClick: () => navigate("/candidates"),
+          }}
+        />
       </Layout>
     );
   }
