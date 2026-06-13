@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-
-import { useCandidatesStore } from "../../store/candidatesStore";
 import { useFiltersStore } from "../../store/filtersStore";
 import { useCandidates } from "../../hooks/useCandidates";
+import { useEnsureCandidates } from "../../hooks/useEnsureCandidates";
 import { useUrlFilters } from "../../hooks/useUrlFilters";
 import { CandidateCard } from "../CandidateCard/CandidateCard";
 import { FilterPanel } from "../FilterPanel/FilterPanel";
@@ -30,19 +28,14 @@ const SkeletonRow = () => (
 );
 
 export const CandidateList = () => {
-  const fetchCandidates = useCandidatesStore((state) => state.fetchCandidates);
-
   const page = useFiltersStore((state) => state.page);
   const setPage = useFiltersStore((state) => state.setPage);
 
   const { candidates, totalCandidates, totalPages, isLoading, error } =
     useCandidates();
 
+  useEnsureCandidates();
   useUrlFilters();
-
-  useEffect(() => {
-    fetchCandidates();
-  }, [fetchCandidates]);
 
   return (
     <div className="space-y-4">

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useCandidatesStore } from "../store/candidatesStore";
+import { useEnsureCandidates } from "../hooks/useEnsureCandidates";
 import { CandidateDetail } from "../components/CandidateDetail/CandidateDetail";
 import { Layout } from "../components/UI/Layout";
 import { MessageState } from "../components/UI/MessageState";
@@ -12,13 +12,8 @@ export const CandidateDetailPage = () => {
 
   const candidates = useCandidatesStore((state) => state.candidates);
   const isLoading = useCandidatesStore((state) => state.isLoading);
-  const fetchCandidates = useCandidatesStore((state) => state.fetchCandidates);
 
-  useEffect(() => {
-    if (candidates.length === 0) {
-      fetchCandidates();
-    }
-  }, [candidates.length, fetchCandidates]);
+  useEnsureCandidates();
 
   const candidate = candidates.find((c) => c.id === id);
 
